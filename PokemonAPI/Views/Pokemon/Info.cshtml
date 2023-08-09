@@ -2,7 +2,58 @@
 
 <h1>Pokemon Info</h1>
 
-<img src="@Model.Sprite" alt="Hope This Works" />
+<img src="@Model.Sprite" alt="Pokemon" />
+
+<table class="table">
+    <tr>
+        <th>Species</th>
+        <th>ID</th>
+        <th>Types</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Possible Held Items</th>
+        <th>Possible Abilities</th>
+        <th>Stats</th>
+    </tr>
+
+    <tr>
+        <td>@Model.Species</td>
+        <td>@Model.ID</td>
+        <td>
+            @foreach (var type in Model.Types)
+            {
+                <h6>@type</h6>
+            }
+        </td>
+        <td>@Model.Height</td>
+        <td>@Model.Weight</td>
+        <td>
+            @if (Model.HeldItems.Count == 0)
+            {
+                <h6>None</h6>
+            }
+            else
+            {
+                @foreach (var item in Model.HeldItems)
+                {
+                    <h6>@item</h6>
+                }
+            }
+        </td>
+        <td>
+            @foreach (var ability in Model.Abilities)
+            {
+                <h6>@ability</h6>
+            }
+        </td>
+        <td>
+            @foreach (var stat in Model.Stats)
+            {
+                <h6>@stat</h6>
+            }
+        </td>
+    </tr>
+</table>
 
 <h3>Species: @Model.Species</h3>
 

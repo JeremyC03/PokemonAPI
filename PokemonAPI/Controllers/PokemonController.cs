@@ -37,6 +37,7 @@ namespace PokemonAPI.Controllers
             List<string> stats = new List<string>();
             foreach (var stat in pokemonObject["stats"])
             {
+                stats.Add(stat["stat"]["name"].ToString());
                 stats.Add(stat["base_stat"].ToString());
             }
             var newPokemon = new PokemonModel(
