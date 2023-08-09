@@ -29,3 +29,5 @@ C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\obj\Debug\net6.0\ref
 C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\obj\Debug\net6.0\PokemonAPI.pdb
 C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\obj\Debug\net6.0\PokemonAPI.genruntimeconfig.cache
 C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\obj\Debug\net6.0\ref\PokemonAPI.dll
+C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\j3r3m\OneDrive\Desktop\Repos\PokemonAPI\PokemonAPI\obj\Debug\net6.0\PokemonAPI.csproj.CopyComplete

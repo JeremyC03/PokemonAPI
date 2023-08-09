@@ -10,6 +10,51 @@ namespace PokemonAPI.Controllers
     {
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult RetrievePokemon(string pokemon)
+        {
+            HttpClient client = new HttpClient();
+            string pokemonURL = $"https://pokeapi.co/api/v2/pokemon/{pokemon.ToLower()}";
+            string pokemonResponse = client.GetStringAsync(pokemonURL).Result;
+            var pokemonObject = JObject.Parse(pokemonResponse);
+
+            List<string> types = new List<string>();
+            foreach(var type in pokemonObject["types"])
+            {
+                types.Add(type["type"]["name"].ToString());
+            }
+            List<string> heldItems = new List<string>();
+            foreach (var items in pokemonObject["held_items"])
+            {
+                heldItems.Add(items["item"]["name"].ToString());
+            }
+            List<string> abilities = new List<string>();
+            foreach (var ability in pokemonObject["abilities"])
+            {
+               abilities.Add(ability["ability"]["name"].ToString());
+            }
+            List<string> stats = new List<string>();
+            foreach (var stat in pokemonObject["stats"])
+            {
+                stats.Add(stat["base_stat"].ToString());
+            }
+            var newPokemon = new PokemonModel(
+            pokemonObject["species"]["name"].ToString(),
+            pokemonObject["id"].Value<int>(),
+            types,
+            pokemonObject["height"].Value<int>(),
+            pokemonObject["weight"].Value<int>(),
+            heldItems,
+            abilities,
+            stats
+            );
+            newPokemon.Sprite = pokemonObject["sprites"]["front_default"].ToString();
+            return RedirectToAction("Info", newPokemon);
+        }
+        public IActionResult Info(PokemonModel newPokemon)
+        {
+            return View(newPokemon);
             //Create new instance of class
             HttpClient client = new HttpClient();
 
@@ -20,6 +65,7 @@ namespace PokemonAPI.Controllers
 
             //While loop to get valid input
             bool conditional = true;
+            var pokemonObject = new JObject();
 
             while (conditional)
             {
@@ -31,7 +77,7 @@ namespace PokemonAPI.Controllers
                     //GET request
                     string pokemonResponse = client.GetStringAsync(pokemonURL).Result;
                     //Parse Object/Array
-                    var pokemonObject = JObject.Parse(pokemonResponse);
+                     pokemonObject = JObject.Parse(pokemonResponse);
                     //var pokemonObject = JsonConvert.DeserializeObject<PokemonModel>(pokemonResponse);
 
                     //Write to console
