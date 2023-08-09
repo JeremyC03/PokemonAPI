@@ -1,9 +1,9 @@
 ﻿@model PokemonModel
 
-<body>
-    <h1>Pokemon Info</h1>
+<body style="background-color:darkred">
+    <h1 style="color:gold;">Pokemon Info</h1>
     <table class="table">
-        <tr>
+        <tr style="color:white">
             <th>Sprite</th>
             <th>Species</th>
             <th>ID</th>
@@ -15,7 +15,7 @@
             <th>Stats</th>
         </tr>
 
-        <tr>
+        <tr style="color:white">
             <td><img src="@Model.Sprite" alt="Pokemon" /></td>
             <td>@Model.Species</td>
             <td>@Model.ID</td>
@@ -56,7 +56,7 @@
     </table>
 
     <form method="post" asp-action="RetrievePokemon">
-        <label for="pokemon">Pokemon</label>
+        <label for="pokemon" style="color:white">Pokemon</label>
         <input type="text" id="pokemon" name="pokemon" />
         <button type="submit">Submit</button>
     </form>
