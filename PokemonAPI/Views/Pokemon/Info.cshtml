@@ -2,20 +2,21 @@
 
 <body style="background-color:darkred">
     <h1 style="color:gold;">Pokemon Info</h1>
-    <table class="table">
+
+    <table class="table" style="background-color:black">
         <tr style="color:white">
             <th>Sprite</th>
             <th>Species</th>
             <th>ID</th>
             <th>Types</th>
-            <th>Height</th>
-            <th>Weight</th>
+            <th>Height (Decimeter)</th>
+            <th>Weight (Hectogram)</th>
             <th>Possible Held Items</th>
             <th>Possible Abilities</th>
-            <th>Stats</th>
+            <th>Base Stats</th>
         </tr>
 
-        <tr style="color:white">
+        <tr style="color:white;background-image:url(https://cdn.pixabay.com/photo/2016/09/01/11/33/pokemon-1635904_640.png); background-repeat: no-repeat;background-position:center; background-size:contain;">
             <td><img src="@Model.Sprite" alt="Pokemon" /></td>
             <td>@Model.Species</td>
             <td>@Model.ID</td>
@@ -47,9 +48,13 @@
                 }
             </td>
             <td>
-                @foreach (var stat in Model.Stats)
+               @* @foreach (var stat in Model.Stats)
                 {
                     <p>@stat</p>
+                }*@
+                @for(var i = 0; i < Model.Stats.Count; i++)
+                {
+                    <p>@Model.Stats[i] : @Model.Stats[++i]</p>
                 }
             </td>
         </tr>
@@ -58,37 +63,6 @@
     <form method="post" asp-action="RetrievePokemon">
         <label for="pokemon" style="color:white">Pokemon</label>
         <input type="text" id="pokemon" name="pokemon" />
-        <button type="submit">Submit</button>
+        <button type="submit" style="color:white; background-color:black">Submit</button>
     </form>
 </body>
-@*<h3>Species: @Model.Species</h3>
-<h3>ID: @Model.ID</h3>
-<h2>Types:</h2>
-@foreach(var type in Model.Types)
-{
-    <h3>@type</h3>
-}
-<h3>Height: @Model.Height</h3>
-<h3>Weight: @Model.Weight</h3>
-<h2>Possible Held Items:</h2>
-@if(Model.HeldItems.Count == 0)
-{
-    <h3>None</h3>
-}
-else
-{
-    @foreach(var item in Model.HeldItems)
-    {
-        <h3>@item</h3>
-    }
-}
-<h2>Possible Abilities:</h2>
-@foreach(var ability in Model.Abilities)
-{
-    <h3>@ability</h3>
-}
-<h2>Stats:</h2>
-@foreach(var stat in Model.Stats)
-{
-    <h3>@stat</h3>
-}*@
