@@ -14,20 +14,32 @@ namespace PokemonAPI.Controllers
         }
         public IActionResult RetrievePokemon(string pokemon)
         {
+            //Declare pokemonObject to be used outside Try-Catch
             JObject pokemonObject;
 
-            HttpClient client = new HttpClient();
-            try
-            {
-                string pokemonURL = $"https://pokeapi.co/api/v2/pokemon/{pokemon.ToLower()}";
-                string pokemonResponse = client.GetStringAsync(pokemonURL).Result;
-                pokemonObject = JObject.Parse(pokemonResponse);
-            }
-            catch (Exception ex) 
+            //Handle null answers
+            if (string.IsNullOrEmpty(pokemon))
             {
                 return RedirectToAction("Index");
             }
 
+            //Create new instance of class
+            HttpClient client = new HttpClient();
+            //Try-Catch if input is incorrect
+            try
+            {
+                //URL endpoint
+                string pokemonURL = $"https://pokeapi.co/api/v2/pokemon/{pokemon.ToLower()}";
+                //GET request
+                string pokemonResponse = client.GetStringAsync(pokemonURL).Result;
+                //Parse Object/Array
+                pokemonObject = JObject.Parse(pokemonResponse);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+            //Made list for muliple answers to be given
             List<string> types = new List<string>();
             foreach(var type in pokemonObject["types"])
             {
@@ -49,6 +61,7 @@ namespace PokemonAPI.Controllers
                 stats.Add(stat["stat"]["name"].ToString());
                 stats.Add(stat["base_stat"].ToString());
             }
+            //What info will be shown to user
             var newPokemon = new PokemonModel(
             pokemonObject["species"]["name"].ToString(),
             pokemonObject["id"].Value<int>(),
